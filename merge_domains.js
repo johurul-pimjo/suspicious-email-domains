@@ -6,6 +6,9 @@ const sources = [
   'https://disposable.github.io/disposable-email-domains/domains.txt',
   'https://raw.githubusercontent.com/amieiro/disposable-email-domains/master/denyDomains.txt',
   'https://raw.githubusercontent.com/kslr/disposable-email-domains/master/list.txt',
+  'https://raw.githubusercontent.com/andreis/disposable-email-domains/master/domains.txt',
+  'https://raw.githubusercontent.com/wesbos/burner-email-providers/master/emails.txt',
+  'https://raw.githubusercontent.com/FGRibreau/mailchecker/master/list.txt',
 ];
 
 const fetchUrl = (url) =>
