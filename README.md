@@ -1,10 +1,10 @@
-# Suspicious Email Domains
+# Suspicious and Disposable Email Domains
 
-A curated list of suspicious email domains commonly associated with spam, phishing, or fraudulent activities. This repository provides a simple way to check if an email domain is potentially suspicious.
+A curated list of suspicious and disposable email domains commonly associated with spam, phishing, or fraudulent activities. This repository provides a simple way to check if an email domain is potentially suspicious or disposable.
 
 ## Features
 
-- **Comprehensive List**: Contains thousands of known suspicious domains.
+- **Comprehensive List**: Contains thousands of known suspicious and disposable domains.
 - **Easy Integration**: Use the provided JavaScript function to check domains programmatically.
 - **Open Source**: Community-driven and regularly updated.
 
@@ -53,11 +53,117 @@ const isSuspicious = await checkEmailDomain("user@0-00.usa.cc");
 console.log(isSuspicious); // true
 ```
 
+### JSON Example (JavaScript)
+
+Here's a JavaScript function using the JSON format:
+
+```javascript
+export const checkEmailDomainJson = async (email) => {
+  try {
+    const res = await fetch(
+      "https://raw.githubusercontent.com/said7388/suspicious-email-domains/refs/heads/main/domains.json",
+    );
+
+    if (!res.ok) {
+      return false;
+    }
+
+    const blocklist = await res.json();
+    const mailDomain = email.split("@")[1];
+    return blocklist.includes(mailDomain);
+  } catch (_error) {
+    return false;
+  }
+};
+```
+
+### PHP Example
+
+Here's a PHP function to check the email domain:
+
+```php
+function checkEmailDomain($email) {
+    try {
+        $url = "https://raw.githubusercontent.com/said7388/suspicious-email-domains/refs/heads/main/domains.json";
+        $json = file_get_contents($url);
+        if ($json === false) {
+            return false;
+        }
+        $blocklist = json_decode($json, true);
+        if ($blocklist === null) {
+            return false;
+        }
+        $mailDomain = explode('@', $email)[1];
+        return in_array($mailDomain, $blocklist);
+    } catch (Exception $e) {
+        return false;
+    }
+}
+```
+
+### Python Example
+
+Here's a Python function to check the email domain:
+
+```python
+import requests
+
+def check_email_domain(email):
+    try:
+        url = "https://raw.githubusercontent.com/said7388/suspicious-email-domains/refs/heads/main/domains.json"
+        response = requests.get(url)
+        if not response.ok:
+            return False
+        blocklist = response.json()
+        mail_domain = email.split('@')[1]
+        return mail_domain in blocklist
+    except:
+        return False
+```
+
+### Go Example
+
+Here's a Go function to check the email domain:
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "net/http"
+    "strings"
+)
+
+func checkEmailDomain(email string) bool {
+    url := "https://raw.githubusercontent.com/said7388/suspicious-email-domains/refs/heads/main/domains.json"
+    resp, err := http.Get(url)
+    if err != nil {
+        return false
+    }
+    defer resp.Body.Close()
+    if resp.StatusCode != http.StatusOK {
+        return false
+    }
+    var blocklist []string
+    if err := json.NewDecoder(resp.Body).Decode(&blocklist); err != nil {
+        return false
+    }
+    mailDomain := strings.Split(email, "@")[1]
+    for _, domain := range blocklist {
+        if domain == mailDomain {
+            return true
+        }
+    }
+    return false
+}
+```
+
 ## Data Sources
 
 The domains are collected from various sources including:
 
 - Public reports of spam and phishing domains
+- Lists of disposable email services
 - Community contributions
 - Automated scans and monitoring
 
@@ -71,9 +177,9 @@ Contributions are welcome! If you know of suspicious domains not listed here, pl
 
 ## Files
 
-- `domains.txt`: Plain text list of domains (one per line)
-- `domains.json`: JSON array of domains
-- `domains.csv`: CSV format with domains
+- `domains.txt`: Plain text list of suspicious and disposable domains (one per line)
+- `domains.json`: JSON array of suspicious and disposable domains
+- `domains.csv`: CSV format with suspicious and disposable domains
 - `merge_domains.js`: Script to merge and process domains
 
 ## License
@@ -82,4 +188,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Disclaimer
 
-This list is not exhaustive and should be used as one of many tools in email validation. Always combine with other security measures.
+This list of suspicious and disposable domains is not exhaustive and should be used as one of many tools in email validation. Always combine with other security measures.
