@@ -2,7 +2,7 @@ name: Update Suspicious Domains
 
 on:
   schedule:
-    - cron: "0 * * * *" # Runs every hour
+    - cron: "0 */3 * * *" # Runs every 3 hour
   workflow_dispatch:
 
 permissions:
